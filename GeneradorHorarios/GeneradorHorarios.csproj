@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+
+		<!-- Configuración para EXE portable -->
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<PublishTrimmed>false</PublishTrimmed>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Plantillas\PlantillaHorario.xlsx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Plantillas\PlantillaHorario.xlsx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="EPPlus" Version="8.0.1" />
+	  <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Windows\" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="GeneradorHorarios.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Generador de Horarios - CETIS"
+        WindowStartupLocation="CenterScreen"
+        Height="600" Width="1000"
+        Background="#F5F5F5">
+
+    <Grid Margin="20">
+
+        <Border Background="White" CornerRadius="12" Padding="25"
+                BorderBrush="#DDDDDD" BorderThickness="1">
+
+            <StackPanel>
+
+                <!-- TÍTULO -->
+                <TextBlock Text="Generador Automático de Horarios"
+                           FontSize="28" FontWeight="Bold" 
+                           Foreground="#333" Margin="0 0 0 5"/>
+
+                <TextBlock Text="Sistema independiente desarrollado en C# .NET 10"
+                           FontSize="16" Foreground="#777" Margin="0 0 0 15"/>
+
+                <Separator Margin="0 0 0 20"/>
+
+                <!-- BOTONES PRINCIPALES -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button Width="220" Height="70" Background="#4CAF50" Foreground="White"
+                            FontSize="18" Content="➕  Crear Nuevo Horario"
+                            Click="CrearHorario_Click"
+                            Margin="10"/>
+
+                    <Button Width="220" Height="70" Background="#2196F3" Foreground="White"
+                            FontSize="18" Content="📁  Abrir Archivo"
+                            Click="AbrirArchivo_Click"
+                            Margin="10"/>
+
+                    <Button Width="220" Height="70" Background="#FF9800" Foreground="White"
+                            FontSize="18" Content="⚙  Configuración"
+                            Click="Config_Click"
+                            Margin="10"/>
+                </StackPanel>
+
+                <!-- SECCIÓN DE CONFIGURACIÓN -->
+                <StackPanel Margin="0 40 0 0" HorizontalAlignment="Center">
+
+                    <TextBlock Text="Opciones de Configuración"
+                               FontSize="20" FontWeight="Bold"
+                               Foreground="#444" Margin="0 0 0 10"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <Button Width="220" Height="60" Background="#673AB7" Foreground="White"
+                                FontSize="16" Content="📚  Agregar / Editar Materias"
+                                Margin="10"
+                                Click="BtnMaterias_Click"/>
+
+                        <Button Width="220" Height="60" Background="#009688" Foreground="White"
+                                FontSize="16" Content="👨‍🏫  Agregar / Editar Profesores"
+                                Margin="10"
+                                Click="BtnProfesores_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>
