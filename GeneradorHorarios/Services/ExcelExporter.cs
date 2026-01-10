@@ -46,7 +46,7 @@ namespace GeneradorHorarios.Services
             );
 
             // EPPlus requiere definir el contexto de licencia
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("David");
 
             using var package = new ExcelPackage(new FileInfo(plantilla));
             var ws = package.Workbook.Worksheets["Hoja 1"];
@@ -58,6 +58,7 @@ namespace GeneradorHorarios.Services
             ws.Cells["C7"].Value = p.ApellidoPaterno;
             ws.Cells["G7"].Value = p.ApellidoMaterno;
             ws.Cells["J7"].Value = p.Nombre;
+            ws.Cells["O7"].Value = p.CorreoElectronico; // nuevo: correo electrónico
 
             ws.Cells["C9"].Value = p.CURP;
             ws.Cells["G9"].Value = p.RFC;
@@ -84,7 +85,7 @@ namespace GeneradorHorarios.Services
             // NOMBRAMIENTO (solo uno puede estar activo)
             ws.Cells["L13"].Value = p.Nombramiento == "Base" ? "X" : "";
             ws.Cells["N13"].Value = p.Nombramiento == "Interino" ? "X" : "";
-            ws.Cells["N14"].Value = p.Nombramiento == "Otro" ? p.Nombramiento : "";
+            ws.Cells["N14"].Value = (p.Nombramiento != "Base" && p.Nombramiento != "Interino") ? p.Nombramiento : "";
 
             // TURNO
             ws.Cells["P15"].Value = p.TurnoMatutino ? "X" : "";

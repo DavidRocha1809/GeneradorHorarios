@@ -95,7 +95,9 @@ namespace GeneradorHorarios
 
             TxtIngresoSEP.Text = p.FechaIngresoSEP;
             TxtIngresoDGETI.Text = p.FechaIngresoDGETI;
-            TxtDepartamento.Text = p.Plazas;
+            TxtDepartamento.Text = p.Departamento;              // ✅ corregido
+            TxtNumeroTarjeta.Text = p.NumeroTarjeta;            // ✅ nuevo
+            TxtCorreo.Text = p.CorreoElectronico;               // ✅ nuevo
 
             TxtHorasNombramiento.Text = p.HorasNombramiento.ToString();
             TxtHorasDescarga.Text = p.HorasDescarga.ToString();
@@ -177,6 +179,9 @@ namespace GeneradorHorarios
 
             p.FechaIngresoSEP = TxtIngresoSEP.Text;
             p.FechaIngresoDGETI = TxtIngresoDGETI.Text;
+            p.Departamento = TxtDepartamento.Text;               // ✅ corregido
+            p.NumeroTarjeta = TxtNumeroTarjeta.Text;             // ✅ nuevo
+            p.CorreoElectronico = TxtCorreo.Text;                // ✅ nuevo
             p.Plazas = TxtPlazas.Text;
 
             if (int.TryParse(TxtHorasNombramiento.Text, out int horasNombramiento))
@@ -198,7 +203,6 @@ namespace GeneradorHorarios
                 p.HorasDescarga = 0;
                 Debug.WriteLine("⚠ HorasDescarga inválidas, se asigna 0");
             }
-
 
             if (RdbBase.IsChecked == true) p.Nombramiento = "Base";
             else if (RdbInterino.IsChecked == true) p.Nombramiento = "Interino";

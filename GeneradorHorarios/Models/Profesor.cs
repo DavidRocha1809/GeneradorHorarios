@@ -35,5 +35,7 @@ namespace GeneradorHorarios.Models
 
         // Horas disponibles para el generador de horarios
         public int HorasDisponibles { get; set; }
+
+        public string CorreoElectronico { get; set; } = "";
     }
 }

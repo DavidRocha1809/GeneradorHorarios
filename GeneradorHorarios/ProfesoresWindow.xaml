@@ -65,6 +65,21 @@
                     </StackPanel>
                 </StackPanel>
 
+                <!-- Nuevo campo: Correo y Número de tarjeta -->
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <StackPanel Margin="0 0 20 0">
+                        <TextBlock Text="Correo electrónico"/>
+                        <TextBox x:Name="TxtCorreo" Width="180"
+                                 TextChanged="Campo_TextChanged"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="No. de tarjeta"/>
+                        <TextBox x:Name="TxtNumeroTarjeta" Width="180"
+                                 TextChanged="Campo_TextChanged"/>
+                    </StackPanel>
+                </StackPanel>
+
                 <!-- ================= DATOS ACADÉMICOS ================= -->
                 <TextBlock Text="Datos Académicos" FontWeight="Bold" FontSize="18" Margin="0 15"/>
 
