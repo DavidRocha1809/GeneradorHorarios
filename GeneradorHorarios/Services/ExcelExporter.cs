@@ -58,11 +58,11 @@ namespace GeneradorHorarios.Services
             ws.Cells["C7"].Value = p.ApellidoPaterno;
             ws.Cells["G7"].Value = p.ApellidoMaterno;
             ws.Cells["J7"].Value = p.Nombre;
-            ws.Cells["O7"].Value = p.CorreoElectronico; // nuevo: correo electrónico
+            ws.Cells["O7"].Value = $"Correo Eléctronico: {p.CorreoElectronico}"; // nuevo: correo electrónico
 
-            ws.Cells["C9"].Value = p.CURP;
-            ws.Cells["G9"].Value = p.RFC;
-            ws.Cells["L9"].Value = p.PeriodoEscolar;
+            ws.Cells["A8"].Value = $"CURP: {p.CURP}";
+            ws.Cells["H8"].Value = $"RFC: {p.RFC}";
+            ws.Cells["L8"].Value = $"PERIODO ESCOLAR: {p.PeriodoEscolar}";
 
             // --------------------------
             // 🔹 DATOS ACADÉMICOS / LABORALES
@@ -73,18 +73,18 @@ namespace GeneradorHorarios.Services
             ws.Cells["N10"].Value = p.CedulaProfesional;      // Cédula profesional
 
             ws.Cells["D11"].Value = p.Departamento;           // Departamento o academia
-            ws.Cells["E15"].Value = p.HorasNombramiento;      // No. horas nombramiento
-            ws.Cells["E18"].Value = p.HorasDescarga;          // Horas de descarga
+            ws.Cells["E14"].Value = p.HorasNombramiento;      // No. horas nombramiento
+            ws.Cells["E17"].Value = p.HorasDescarga;          // Horas de descarga
 
-            ws.Cells["G18"].Value = p.Plazas;                 // Plazas
+            ws.Cells["G14"].Value = p.Plazas;                 // Plazas
             ws.Cells["P11"].Value = p.NumeroTarjeta;          // No. tarjeta
 
-            ws.Cells["A18"].Value = p.FechaIngresoSEP;        // Fecha ingreso SEP
-            ws.Cells["C18"].Value = p.FechaIngresoDGETI;      // Fecha ingreso DGETI
+            ws.Cells["A14"].Value = p.FechaIngresoSEP;        // Fecha ingreso SEP
+            ws.Cells["C14"].Value = p.FechaIngresoDGETI;      // Fecha ingreso DGETI
 
             // NOMBRAMIENTO (solo uno puede estar activo)
-            ws.Cells["L13"].Value = p.Nombramiento == "Base" ? "X" : "";
-            ws.Cells["N13"].Value = p.Nombramiento == "Interino" ? "X" : "";
+            ws.Cells["L13"].Value = p.Nombramiento == "Base" ? "1. Base X" : "";
+            ws.Cells["N13"].Value = p.Nombramiento == "Interino" ? "2. Base X" : "";
             ws.Cells["N14"].Value = (p.Nombramiento != "Base" && p.Nombramiento != "Interino") ? p.Nombramiento : "";
 
             // TURNO

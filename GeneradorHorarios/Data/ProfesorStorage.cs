@@ -12,18 +12,25 @@ namespace GeneradorHorarios.Data
 
         public ProfesorStorage()
         {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string dataFolder = Path.Combine(basePath, "Data");
+            // Directorio fijo: %APPDATA%\GeneradorHorarios
+            string basePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "GeneradorHorarios");
 
             // Crear carpeta si no existe
-            if (!Directory.Exists(dataFolder))
-                Directory.CreateDirectory(dataFolder);
+            if (!Directory.Exists(basePath))
+            {
+                Directory.CreateDirectory(basePath);
+            }
 
-            rutaArchivo = Path.Combine(dataFolder, "profesores.json");
+            // Ruta completa al archivo JSON
+            rutaArchivo = Path.Combine(basePath, "profesores.json");
 
             // Crear archivo vacío si no existe
             if (!File.Exists(rutaArchivo))
+            {
                 File.WriteAllText(rutaArchivo, "[]");
+            }
         }
 
         public List<Profesor> CargarProfesores()
@@ -31,12 +38,11 @@ namespace GeneradorHorarios.Data
             try
             {
                 string json = File.ReadAllText(rutaArchivo);
-
-                return JsonSerializer.Deserialize<List<Profesor>>(json)
-                    ?? new List<Profesor>();
+                return JsonSerializer.Deserialize<List<Profesor>>(json) ?? new List<Profesor>();
             }
             catch
             {
+                // Si hay algún problema de lectura, devolvemos una lista vacía
                 return new List<Profesor>();
             }
         }
