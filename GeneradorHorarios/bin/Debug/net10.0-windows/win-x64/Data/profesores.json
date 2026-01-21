@@ -1,0 +1,26 @@
+[
+  {
+    "ApellidoPaterno": "",
+    "ApellidoMaterno": "",
+    "Nombre": "Nuevo Profesor",
+    "CURP": "",
+    "RFC": "",
+    "PeriodoEscolar": "",
+    "GradoMaximo": "",
+    "EgresadoDe": "",
+    "CedulaProfesional": "",
+    "Departamento": "",
+    "Nombramiento": "",
+    "HorasNombramiento": 0,
+    "HorasDescarga": 0,
+    "Plazas": "",
+    "FechaIngresoSEP": "",
+    "FechaIngresoDGETI": "",
+    "NumeroTarjeta": "",
+    "TurnoMatutino": false,
+    "TurnoVespertino": false,
+    "MateriasQueImparte": [],
+    "HorasDisponibles": 0,
+    "CorreoElectronico": ""
+  }
+]

@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="EPPlus" Version="8.0.1" />
+	  <PackageReference Include="DocX" Version="5.0.0" />
 	  <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
 	</ItemGroup>
 

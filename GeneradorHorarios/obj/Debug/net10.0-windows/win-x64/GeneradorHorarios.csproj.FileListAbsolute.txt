@@ -594,3 +594,4 @@ C:\Users\david\source\repos\GeneradorHorarios\GeneradorHorarios\bin\Debug\net10.
 C:\Users\david\source\repos\GeneradorHorarios\GeneradorHorarios\bin\Debug\net10.0-windows\win-x64\zh-Hant\System.Windows.Forms.Primitives.resources.dll
 C:\Users\david\source\repos\GeneradorHorarios\GeneradorHorarios\bin\Debug\net10.0-windows\win-x64\zh-Hant\System.Windows.Forms.resources.dll
 C:\Users\david\source\repos\GeneradorHorarios\GeneradorHorarios\bin\Debug\net10.0-windows\win-x64\zh-Hant\WindowsFormsIntegration.resources.dll
+C:\Users\david\source\repos\GeneradorHorarios\GeneradorHorarios\obj\Debug\net10.0-windows\win-x64\GeneradorHorarios.sourcelink.json

@@ -15,39 +15,24 @@ namespace GeneradorHorarios
         // BOTÓN: Crear nuevo horario (y exportar Excel)
         private void CrearHorario_Click(object sender, RoutedEventArgs e)
         {
-            // Cargar profesores guardados
             var storage = new ProfesorStorage();
             var profesores = storage.CargarProfesores();
 
             if (profesores.Count == 0)
             {
-                MessageBox.Show(
-                    "No hay profesores registrados.\nPrimero agrega profesores.",
-                    "Aviso",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
-                );
+                MessageBox.Show("No hay profesores registrados.");
                 return;
             }
 
-            // 👉 Por ahora tomamos el primero
-            // (después se podrá elegir desde una ventana)
-            var profesor = profesores[0];
+            var profesor = profesores[0]; // (Aquí luego podrás poner un selector)
 
-            // Generar horario
+            // 1. Generar datos
             var generator = new HorarioGenerator();
-            var horario = generator.GenerarHorarioProfesor(profesor);
+            var datosHorario = generator.GenerarHorarioProfesor(profesor);
 
-            // Exportar a Excel usando plantilla
-            var exporter = new ExcelExporter();
-            exporter.ExportarProfesor(profesor);
-
-            MessageBox.Show(
-                $"Horario generado y exportado correctamente para:\n{profesor.Nombre}",
-                "Proceso completado",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            // 2. Exportar a Word
+            var wordExporter = new WordExporter();
+            wordExporter.ExportarHorario(profesor, datosHorario);
         }
 
         // BOTÓN: Abrir archivo (futuro)
