@@ -18,7 +18,7 @@
         <StackPanel Grid.Column="1" Margin="20">
 
             <TextBlock Text="Nombre:" FontWeight="Bold"/>
-            <TextBox x:Name="TxtNombre" Margin="0 5"/>
+            <TextBox x:Name="txtNombreMateria" Margin="0 5"/>
 
             <TextBlock Text="Área:" FontWeight="Bold"/>
             <TextBox x:Name="TxtArea" Margin="0 5"/>

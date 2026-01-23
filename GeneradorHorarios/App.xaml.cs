@@ -1,5 +1,4 @@
-﻿using OfficeOpenXml;
-using System.Windows;
+﻿using System.Windows;
 
 namespace GeneradorHorarios
 {

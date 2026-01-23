@@ -1,197 +1,54 @@
 ﻿<Window x:Class="GeneradorHorarios.ProfesoresWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Administrar Profesores"
-        Height="650"
-        Width="900"
-        WindowStartupLocation="CenterOwner">
+        Title="Agregar Nuevo Profesor" Height="650" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Datos del Profesor" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-    <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
+                <TextBlock Text="Nombre:"/>
+                <TextBox x:Name="txtNombre" Margin="0,0,0,10" Padding="3"/>
 
-        <!-- ================= LISTA DE PROFESORES ================= -->
-        <ListBox x:Name="ListaProfesores"
-                 DisplayMemberPath="Nombre"
-                 SelectionChanged="ListaProfesores_SelectionChanged"
-                 Margin="0,0,10,0"/>
+                <TextBlock Text="Apellido Paterno:"/>
+                <TextBox x:Name="txtAppPaterno" Margin="0,0,0,10" Padding="3"/>
 
-        <!-- ================= PANEL DE CAPTURA ================= -->
-        <ScrollViewer Grid.Column="1" Margin="0,10,-20,30">
-            <StackPanel Width="650">
+                <TextBlock Text="Apellido Materno:"/>
+                <TextBox x:Name="txtAppMaterno" Margin="0,0,0,10" Padding="3"/>
 
-                <!-- ================= DATOS PERSONALES ================= -->
-                <TextBlock Text="Datos Personales" FontWeight="Bold" FontSize="18" Margin="0 10"/>
+                <TextBlock Text="RFC:"/>
+                <TextBox x:Name="txtRFC" Margin="0,0,0,10" Padding="3"/>
 
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Apellido Paterno"/>
-                        <TextBox x:Name="TxtApellidoP" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
+                <TextBlock Text="Departamento:"/>
+                <TextBox x:Name="txtDepartamento" Margin="0,0,0,10" Padding="3"/>
 
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Apellido Materno"/>
-                        <TextBox x:Name="TxtApellidoM" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
+                <TextBlock Text="Turnos Disponibles:" Margin="0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <CheckBox x:Name="chkMatutino" Content="Matutino" Margin="0,0,15,0"/>
+                    <CheckBox x:Name="chkVespertino" Content="Vespertino"/>
+                </StackPanel>
 
+                <GroupBox Header="Carga Académica (Materias y Grupos)" Margin="0,10" Padding="10" BorderBrush="#007ACC">
                     <StackPanel>
-                        <TextBlock Text="Nombre(s)"/>
-                        <TextBox x:Name="TxtNombre" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
+                        <TextBlock Text="1. Seleccionar Materia:" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="cmbMaterias" DisplayMemberPath="Nombre" Margin="0,2,0,8"/>
+
+                        <TextBlock Text="2. Escribir Grupo (Ej: 6IM8):" FontWeight="SemiBold"/>
+                        <TextBox x:Name="txtGrupoAsignado" Margin="0,2,0,8" Padding="3"/>
+
+                        <Button Content="Agregar a la lista" Click="BtnAgregarAsignacion_Click" 
+                                Background="#DDDDDD" Margin="0,0,0,10" Height="25"/>
+
+                        <TextBlock Text="Materias Asignadas:" FontStyle="Italic"/>
+                        <ListBox x:Name="lstAsignaciones" DisplayMemberPath="TextoVista" Height="100" 
+                                 BorderBrush="Gray" BorderThickness="1"/>
                     </StackPanel>
-                </StackPanel>
+                </GroupBox>
 
-                <StackPanel Orientation="Horizontal" Margin="0 5">
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="CURP"/>
-                        <TextBox x:Name="TxtCURP" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="RFC"/>
-                        <TextBox x:Name="TxtRFC" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Periodo Escolar"/>
-                        <TextBox x:Name="TxtPeriodo" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- Nuevo campo: Correo y Número de tarjeta -->
-                <StackPanel Orientation="Horizontal" Margin="0 5">
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Correo electrónico"/>
-                        <TextBox x:Name="TxtCorreo" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="No. de tarjeta"/>
-                        <TextBox x:Name="TxtNumeroTarjeta" Width="180"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- ================= DATOS ACADÉMICOS ================= -->
-                <TextBlock Text="Datos Académicos" FontWeight="Bold" FontSize="18" Margin="0 15"/>
-
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Grado máximo de estudios"/>
-                        <TextBox x:Name="TxtGradoMax" Width="220"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Egresado de"/>
-                        <TextBox x:Name="TxtEgresado" Width="220"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Cédula profesional"/>
-                        <TextBox x:Name="TxtCedula" Width="164"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- ================= HISTORIAL LABORAL ================= -->
-                <TextBlock Text="Historial laboral" FontWeight="Bold" FontSize="18" Margin="0 15"/>
-
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Fecha ingreso SEP (QNA/AÑO)"/>
-                        <TextBox x:Name="TxtIngresoSEP" Width="200"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="0 0 20 0">
-                        <TextBlock Text="Fecha ingreso DGETI (QNA/AÑO)"/>
-                        <TextBox x:Name="TxtIngresoDGETI" Width="200"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Departamento / Academia"/>
-                        <TextBox x:Name="TxtDepartamento" Width="200"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- ================= NOMBRAMIENTO ================= -->
-                <TextBlock Text="Nombramiento" FontWeight="Bold" FontSize="18" Margin="0 15"/>
-
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0 20 20 0">
-                        <TextBlock Text="Horas de nombramiento"/>
-                        <TextBox x:Name="TxtHorasNombramiento" Width="160"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="0 20 20 0">
-                        <TextBlock Text="Horas de descarga"/>
-                        <TextBox x:Name="TxtHorasDescarga" Width="160"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Plazas"/>
-                        <TextBox x:Name="TxtPlazas" Width="160"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <StackPanel Margin="0 20 50 0">
-                        <TextBlock Text="Tipo de nombramiento"/>
-                        <RadioButton x:Name="RdbBase"
-                                     Content="Base"
-                                     GroupName="Nombramiento"
-                                     Checked="Campo_Checked"/>
-                        <RadioButton x:Name="RdbInterino"
-                                     Content="Interino"
-                                     GroupName="Nombramiento"
-                                     Checked="Campo_Checked"/>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Otro (especificar)"/>
-                        <TextBox x:Name="TxtOtroNombramiento" Width="200"
-                                 TextChanged="Campo_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- ================= TURNO ================= -->
-                <TextBlock Text="Turno" FontWeight="Bold" FontSize="18" Margin="0 15"/>
-
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="ChkMatutino"
-                              Content="Matutino"
-                              Margin="10"
-                              Checked="Campo_Checked"
-                              Unchecked="Campo_Checked"/>
-                    <CheckBox x:Name="ChkVespertino"
-                              Content="Vespertino"
-                              Margin="10"
-                              Checked="Campo_Checked"
-                              Unchecked="Campo_Checked"/>
-                </StackPanel>
-
-                <!-- ================= BOTONES ================= -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30">
-                    <Button Content="Guardar" Width="120" Margin="10" Click="Guardar_Click"/>
-                    <Button Content="Agregar" Width="120" Margin="10" Click="Agregar_Click"/>
-                    <Button Content="Eliminar" Width="120" Margin="10" Click="Eliminar_Click"/>
-                </StackPanel>
-
+                <Button x:Name="btnGuardar" Content="GUARDAR PROFESOR" Click="Guardar_Click" 
+                        Height="40" Background="#007ACC" Foreground="White" 
+                        FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -16,22 +16,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Plantillas\PlantillaHorario.xlsx" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Plantillas\PlantillaHorario.xlsx">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="DocX" Version="5.0.0" />
 	  <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Windows\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Plantillas\PlantillaHorario.docx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

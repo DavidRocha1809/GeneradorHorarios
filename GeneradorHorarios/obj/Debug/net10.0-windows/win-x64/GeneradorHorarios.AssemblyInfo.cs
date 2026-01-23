@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeneradorHorarios")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afff00b9ad533bfa16513a9f9a259da570481f4b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+506377f8741bcd2723593ab72de65c052bd92e8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeneradorHorarios")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeneradorHorarios")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

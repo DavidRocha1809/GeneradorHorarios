@@ -32,6 +32,7 @@ namespace GeneradorHorarios.Services
                     // 1. Reemplazar Nombre
                     string nombreCompleto = $"{p.Nombre} {p.ApellidoPaterno} {p.ApellidoMaterno}";
                     doc.ReplaceText("{{NOMBRE}}", nombreCompleto);
+                    doc.ReplaceText("{{GRUPO}}", "6IM8");
 
                     // 2. Llenar Tabla (Asumiendo que es la primera tabla [0])
                     if (doc.Tables.Count > 0 && datosHorario != null)
@@ -44,11 +45,11 @@ namespace GeneradorHorarios.Services
                             { "07:00 - 08:00", 1 }, // Fila 1 (La 0 es encabezado)
                             { "08:00 - 09:00", 2 },
                             { "09:00 - 10:00", 3 },
-                            { "10:00 - 11:00", 4 },
-                            { "11:00 - 12:00", 5 },
-                            { "12:00 - 13:00", 6 },
-                            { "13:00 - 14:00", 7 },
-                            { "14:00 - 15:00", 8 }
+                            { "10:00 - 11:00", 5 },
+                            { "11:00 - 12:00", 6 },
+                            { "12:00 - 13:00", 7 },
+                            { "13:00 - 14:00", 8 },
+                            { "14:00 - 15:00", 9 }
                         };
 
                         // Mapeo: Día -> Columna
