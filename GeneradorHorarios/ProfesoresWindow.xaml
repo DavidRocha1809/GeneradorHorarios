@@ -1,41 +1,127 @@
 ﻿<Window x:Class="GeneradorHorarios.ProfesoresWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Agregar Nuevo Profesor" Height="650" Width="500"
+        Title="Gestionar Profesores" Height="720" Width="1000"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="10">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" BorderBrush="#CCCCCC" BorderThickness="0,0,1,0" Padding="0,0,15,0">
+            <DockPanel>
+                <TextBlock Text="Profesores Registrados" DockPanel.Dock="Top" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#333333"/>
+                <TextBlock Text="Selecciona uno para editar:" DockPanel.Dock="Top" FontStyle="Italic" Margin="0,0,0,5" Foreground="Gray"/>
+
+                <ListBox x:Name="lstProfesoresExistentes" BorderBrush="#999999" BorderThickness="1" 
+                         SelectionChanged="LstProfesores_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <TextBlock FontWeight="Bold" FontSize="14">
+                                    <Run Text="{Binding Nombre}"/>
+                                    <Run Text="{Binding ApellidoPaterno}"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding RFC}" FontSize="11" Foreground="Gray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="15,0,0,0">
             <StackPanel>
-                <TextBlock Text="Datos del Profesor" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <DockPanel LastChildFill="False">
+                    <TextBlock x:Name="lblTituloFormulario" Text="Nuevo Profesor" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="#333333" VerticalAlignment="Center"/>
+                    <Button Content="Limpiar / Nuevo" Click="BtnNuevo_Click" DockPanel.Dock="Right" Padding="10,5" Background="White" BorderBrush="#007ACC" Foreground="#007ACC"/>
+                </DockPanel>
 
                 <TextBlock Text="Nombre:"/>
-                <TextBox x:Name="txtNombre" Margin="0,0,0,10" Padding="3"/>
-
+                <TextBox x:Name="txtNombre" Margin="0,0,0,5" Padding="3"/>
                 <TextBlock Text="Apellido Paterno:"/>
-                <TextBox x:Name="txtAppPaterno" Margin="0,0,0,10" Padding="3"/>
-
+                <TextBox x:Name="txtAppPaterno" Margin="0,0,0,5" Padding="3"/>
                 <TextBlock Text="Apellido Materno:"/>
-                <TextBox x:Name="txtAppMaterno" Margin="0,0,0,10" Padding="3"/>
-
+                <TextBox x:Name="txtAppMaterno" Margin="0,0,0,5" Padding="3"/>
                 <TextBlock Text="RFC:"/>
-                <TextBox x:Name="txtRFC" Margin="0,0,0,10" Padding="3"/>
-
+                <TextBox x:Name="txtRFC" Margin="0,0,0,5" Padding="3"/>
                 <TextBlock Text="Departamento:"/>
                 <TextBox x:Name="txtDepartamento" Margin="0,0,0,10" Padding="3"/>
 
-                <TextBlock Text="Turnos Disponibles:" Margin="0,5"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <CheckBox x:Name="chkMatutino" Content="Matutino" Margin="0,0,15,0"/>
-                    <CheckBox x:Name="chkVespertino" Content="Vespertino"/>
-                </StackPanel>
-
-                <GroupBox Header="Carga Académica (Materias y Grupos)" Margin="0,10" Padding="10" BorderBrush="#007ACC">
+                <GroupBox Header="Disponibilidad y Horario" Margin="0,5,0,10" Padding="10">
                     <StackPanel>
-                        <TextBlock Text="1. Seleccionar Materia:" FontWeight="SemiBold"/>
-                        <ComboBox x:Name="cmbMaterias" DisplayMemberPath="Nombre" Margin="0,2,0,8"/>
+                        <TextBlock Text="Días que asiste al plantel:" FontWeight="SemiBold"/>
+                        <WrapPanel Margin="0,5">
+                            <CheckBox x:Name="chkLun" Content="Lun" IsChecked="True" Width="50"/>
+                            <CheckBox x:Name="chkMar" Content="Mar" IsChecked="True" Width="50"/>
+                            <CheckBox x:Name="chkMie" Content="Mié" IsChecked="True" Width="50"/>
+                            <CheckBox x:Name="chkJue" Content="Jue" IsChecked="True" Width="50"/>
+                            <CheckBox x:Name="chkVie" Content="Vie" IsChecked="True" Width="50"/>
+                        </WrapPanel>
 
-                        <TextBlock Text="2. Escribir Grupo (Ej: 6IM8):" FontWeight="SemiBold"/>
-                        <TextBox x:Name="txtGrupoAsignado" Margin="0,2,0,8" Padding="3"/>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Hora Entrada (0-24):"/>
+                                <TextBox x:Name="txtHoraEntrada" Text="7" Padding="3"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Hora Salida (0-24):"/>
+                                <TextBox x:Name="txtHoraSalida" Text="15" Padding="3"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <CheckBox x:Name="chkMatutino" Content="Turno Matutino" Margin="0,0,15,0"/>
+                            <CheckBox x:Name="chkVespertino" Content="Turno Vespertino"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Carga Académica (Materias, Grupos y Horas)" Margin="0,5,0,10" Padding="10" BorderBrush="#007ACC">
+                    <StackPanel>
+                        <TextBlock Text="1. Buscar Materia:" FontWeight="SemiBold"/>
+                        <Grid Margin="0,0,0,5">
+                            <TextBox x:Name="txtBuscarMateria" TextChanged="TxtBuscarMateria_TextChanged" Padding="3"/>
+                            <TextBlock IsHitTestVisible="False" Text="🔍 Escribe para filtrar..." VerticalAlignment="Center" Margin="6,0,0,0" Foreground="Gray" FontStyle="Italic">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtBuscarMateria}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+
+                        <TextBlock Text="Seleccionar de la lista:" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="cmbMaterias" DisplayMemberPath="Nombre" Margin="0,2,0,8" IsEditable="False"/>
+
+                        <Grid Margin="0,2,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="2. Grupo (Ej: 6IM8):" FontWeight="SemiBold"/>
+                                <TextBox x:Name="txtGrupoAsignado" Padding="3"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="3. Horas/Sem:" FontWeight="SemiBold" Foreground="#CC0000"/>
+                                <TextBox x:Name="txtHorasSemana" Padding="3" Text="5" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Grid>
 
                         <Button Content="Agregar a la lista" Click="BtnAgregarAsignacion_Click" 
                                 Background="#DDDDDD" Margin="0,0,0,10" Height="25"/>
@@ -43,12 +129,15 @@
                         <TextBlock Text="Materias Asignadas:" FontStyle="Italic"/>
                         <ListBox x:Name="lstAsignaciones" DisplayMemberPath="TextoVista" Height="100" 
                                  BorderBrush="Gray" BorderThickness="1"/>
+
+                        <Button Content="Eliminar Asignación" Click="BtnEliminarAsignacion_Click" 
+                                FontSize="10" HorizontalAlignment="Right" Margin="0,5,0,0" Background="#FFF0F0" BorderBrush="Red"/>
                     </StackPanel>
                 </GroupBox>
 
                 <Button x:Name="btnGuardar" Content="GUARDAR PROFESOR" Click="Guardar_Click" 
                         Height="40" Background="#007ACC" Foreground="White" 
-                        FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                        FontSize="14" FontWeight="Bold" Margin="0,10,0,20"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="DocX" Version="5.0.0" />
+	  <PackageReference Include="EPPlus" Version="8.4.1" />
 	  <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.1" />
 	</ItemGroup>
 
@@ -25,6 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Plantillas\Plantilla.xlsx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Plantillas\PlantillaHorario.docx">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

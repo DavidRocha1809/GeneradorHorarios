@@ -5,7 +5,10 @@
         public string NombreMateria { get; set; }
         public string Grupo { get; set; }
 
-        // Esta propiedad combina los dos textos para mostrarlo en la lista (Ej: "Matemáticas - 6IM8")
-        public string TextoVista => $"{NombreMateria} - {Grupo}";
+        // La cantidad de horas que se deben impartir a este grupo
+        public int HorasSemana { get; set; }
+
+        // Texto para mostrar en la lista visual
+        public string TextoVista => $"{NombreMateria} - {Grupo} ({HorasSemana} hrs)";
     }
 }

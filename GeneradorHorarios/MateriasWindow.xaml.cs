@@ -2,110 +2,105 @@
 using GeneradorHorarios.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq; // Necesario para .Any()
 using System.Windows;
+using System.Windows.Controls; // Necesario para SelectionChanged
 
 namespace GeneradorHorarios
 {
     public partial class MateriasWindow : Window
     {
-        MateriaStorage storage = new MateriaStorage();
-        List<Materia> materias;
-
         public MateriasWindow()
         {
             InitializeComponent();
-
-            materias = storage.CargarMaterias();
-            ListaMaterias.ItemsSource = materias;
+            CargarMaterias();
         }
 
-        private void ListaMaterias_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void CargarMaterias()
         {
-            if (ListaMaterias.SelectedItem is Materia m)
+            try
             {
-                txtNombreMateria.Text = m.Nombre;
-                TxtArea.Text = m.Area;
+                var storage = new MateriaStorage();
+                var materias = storage.CargarMaterias();
+                lstMaterias.ItemsSource = null;
+                lstMaterias.ItemsSource = materias;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar materias: " + ex.Message);
             }
         }
 
-        private void Guardar_Click(object sender, RoutedEventArgs e)
+        // --- 1. BOTÓN AGREGAR (Con validación de duplicados) ---
+        private void Agregar_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Obtener el nombre del TextBox (Asegúrate que tu TextBox se llame txtNombreMateria)
             string nombreIngresado = txtNombreMateria.Text.Trim();
 
-            // Validación básica: Campo vacío
             if (string.IsNullOrEmpty(nombreIngresado))
             {
                 MessageBox.Show("Por favor escribe el nombre de la materia.");
                 return;
             }
 
-            // ---------------------------------------------------------
-            // 2. VALIDACIÓN DE DUPLICADOS
-            // ---------------------------------------------------------
             var storage = new MateriaStorage();
-            var materiasExistentes = storage.CargarMaterias();
+            var lista = storage.CargarMaterias();
 
-            // Verificamos si alguna materia en la lista tiene el MISMO nombre
-            // StringComparison.OrdinalIgnoreCase -> Ignora mayúsculas/minúsculas (Matemáticas == matemáticas)
-            bool existe = materiasExistentes.Any(m =>
-                m.Nombre.Equals(nombreIngresado, StringComparison.OrdinalIgnoreCase));
+            // Validación: ¿Ya existe?
+            bool existe = lista.Any(m => m.Nombre.Equals(nombreIngresado, StringComparison.OrdinalIgnoreCase));
 
             if (existe)
             {
-                MessageBox.Show($"La materia '{nombreIngresado}' ya existe en el sistema.", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return; // Se detiene aquí y NO guarda
+                MessageBox.Show($"La materia '{nombreIngresado}' ya existe.", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
-            // ---------------------------------------------------------
 
-            // 3. Si no existe, procedemos a guardar
-            var nuevaMateria = new Materia
-            {
-                Nombre = nombreIngresado
-                // Si tienes otros campos como ID o Semestre, asígnalos aquí
-            };
+            // Guardar nueva
+            lista.Add(new Materia { Nombre = nombreIngresado });
+            storage.GuardarMaterias(lista);
 
-            materiasExistentes.Add(nuevaMateria);
-            storage.GuardarMaterias(materiasExistentes);
-
-            MessageBox.Show("Materia guardada correctamente.");
-
-            // Limpiar y recargar
-            txtNombreMateria.Text = "";
-            CargarMaterias();
+            MessageBox.Show("Materia guardada.");
+            txtNombreMateria.Text = ""; // Limpiar
+            CargarMaterias(); // Recargar lista
         }
 
-        private void Agregar_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(txtNombreMateria.Text))
-            {
-                var nueva = new Materia(txtNombreMateria.Text, TxtArea.Text);
-
-                materias.Add(nueva);
-                storage.GuardarMaterias(materias);
-
-                ListaMaterias.Items.Refresh();
-
-                txtNombreMateria.Clear();
-                TxtArea.Clear();
-            }
-            else
-            {
-                MessageBox.Show("Debes escribir el nombre de la materia.");
-            }
-        }
-
+        // --- 2. BOTÓN ELIMINAR (Que faltaba antes) ---
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
-            if (ListaMaterias.SelectedItem is Materia m)
-            {
-                materias.Remove(m);
-                storage.GuardarMaterias(materias);
-                ListaMaterias.Items.Refresh();
+            var materiaSeleccionada = lstMaterias.SelectedItem as Materia;
 
-                txtNombreMateria.Clear();
-                TxtArea.Clear();
+            if (materiaSeleccionada == null)
+            {
+                MessageBox.Show("Selecciona una materia de la lista para eliminar.");
+                return;
+            }
+
+            var confirm = MessageBox.Show($"¿Estás seguro de eliminar '{materiaSeleccionada.Nombre}'?",
+                                          "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (confirm == MessageBoxResult.Yes)
+            {
+                var storage = new MateriaStorage();
+                var lista = storage.CargarMaterias();
+
+                // Buscamos y eliminamos
+                var itemAEliminar = lista.FirstOrDefault(m => m.Nombre == materiaSeleccionada.Nombre);
+                if (itemAEliminar != null)
+                {
+                    lista.Remove(itemAEliminar);
+                    storage.GuardarMaterias(lista);
+
+                    txtNombreMateria.Text = "";
+                    CargarMaterias();
+                }
+            }
+        }
+
+        // --- 3. EVENTO DE SELECCIÓN (Para llenar el textbox al dar click en la lista) ---
+        private void ListaMaterias_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstMaterias.SelectedItem is Materia materia)
+            {
+                txtNombreMateria.Text = materia.Nombre;
             }
         }
     }

@@ -21,15 +21,25 @@ namespace GeneradorHorarios.Models
         public string Plazas { get; set; }
         public string FechaIngresoSEP { get; set; }
 
-        // Turnos
+        // --- DISPONIBILIDAD ---
+        public bool AsisteLunes { get; set; } = true;
+        public bool AsisteMartes { get; set; } = true;
+        public bool AsisteMiercoles { get; set; } = true;
+        public bool AsisteJueves { get; set; } = true;
+        public bool AsisteViernes { get; set; } = true;
+
+        // Horario de permanencia (0-24)
+        public int HoraEntrada { get; set; } = 7;
+        public int HoraSalida { get; set; } = 15;
+
+        // Turnos (informativo)
         public bool TurnoMatutino { get; set; }
         public bool TurnoVespertino { get; set; }
 
         // Listas
         public List<Materia> MateriasQueImparte { get; set; } = new List<Materia>();
-
-        // --- NUEVA LISTA IMPORTANTE ---
-        // Aquí guardaremos "Materia + Grupo"
         public List<Asignacion> CargaAcademica { get; set; } = new List<Asignacion>();
+
+        public Dictionary<string, string> HorarioFinalOcupado { get; set; } = new Dictionary<string, string>();
     }
 }
